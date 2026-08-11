@@ -1,0 +1,36 @@
+[Unit]
+Description=Telegram gateway for Pi control
+Wants=network-online.target pi-control-core.service
+After=network-online.target pi-control-core.service
+Requires=pi-control-core.service
+
+[Service]
+Type=notify
+User=pi-telegram
+Group=pi-telegram
+SupplementaryGroups=pi-control
+WorkingDirectory=/opt/pi-ai-operations-hub/current
+EnvironmentFile=/etc/pi-ai-operations-hub/telegram.env
+ExecStart=/opt/node24/bin/node /opt/pi-ai-operations-hub/current/bin/telegram-control.mjs
+Restart=always
+RestartSec=2
+WatchdogSec=60s
+NotifyAccess=all
+UMask=0007
+NoNewPrivileges=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictRealtime=true
+ReadWritePaths=/var/lib/pi-ai-operations-hub/shared /var/lib/pi-ai-operations-hub/telegram
+
+[Install]
+WantedBy=multi-user.target

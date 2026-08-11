@@ -1,0 +1,10 @@
+[Unit]
+Description=Pi control end-to-end health check
+After=network-online.target pi-control-core.service telegram-control.service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/pi-control/current/deploy/smoke-test.sh --control-plane-only
+TimeoutStartSec=120
+User=root
+UMask=0077

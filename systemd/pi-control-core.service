@@ -1,0 +1,34 @@
+[Unit]
+Description=Pi control core (priority recovery plane)
+Wants=network-online.target
+After=network-online.target
+Before=nginx.service cloudflared.service
+
+[Service]
+Type=notify
+User=pi-control
+Group=pi-control
+SupplementaryGroups=pi-control
+WorkingDirectory=/opt/pi-ai-operations-hub/current
+EnvironmentFile=/etc/pi-ai-operations-hub/core.env
+EnvironmentFile=/etc/pi-ai-operations-hub/provider.env
+LoadCredential=high-risk-password:/etc/pi-ai-operations-hub/high-risk-password.hash
+ExecStart=/opt/node24/bin/node /opt/pi-ai-operations-hub/current/bin/pi-control-core.mjs
+Restart=always
+RestartSec=2
+WatchdogSec=30s
+NotifyAccess=all
+CPUWeight=900
+IOWeight=900
+OOMScoreAdjust=-500
+MemoryHigh=2G
+MemoryMax=3G
+TasksMax=512
+UMask=0007
+NoNewPrivileges=false
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/pi-ai-operations-hub/shared /var/lib/pi-ai-operations-hub/core
+
+[Install]
+WantedBy=multi-user.target

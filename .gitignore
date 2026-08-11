@@ -1,0 +1,14 @@
+.worktrees/
+.superpowers/
+node_modules/
+__pycache__/
+*.py[cod]
+*.bak*
+.env
+.env.*
+!.env.example
+data/
+*.sqlite
+*.sqlite-*
+history-export*.json
+*-test.log

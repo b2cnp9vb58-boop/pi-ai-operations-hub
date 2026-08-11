@@ -1,0 +1,11 @@
+[Unit]
+Description=Periodic Pi control health check
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+Persistent=true
+Unit=pi-control-health.service
+
+[Install]
+WantedBy=timers.target

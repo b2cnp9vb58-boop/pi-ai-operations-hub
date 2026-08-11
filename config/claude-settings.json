@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/opt/node24/bin/node /opt/pi-ai-operations-hub/current/bin/claude-pretool-hook.mjs",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
